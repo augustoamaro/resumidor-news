@@ -18,4 +18,3 @@ O Resumidor de Notícias é uma aplicação Python que utiliza APIs de ponta par
 2. **Beautiful Soup (para parsing HTML)**
 3. **NewsAPI** 
 4. **Google Generative AI** 
-5. **Resultado:**
