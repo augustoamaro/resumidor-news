@@ -27,8 +27,8 @@ if st.sidebar.button("Buscar notícias"):
                                               language='pt',
                                               sort_by='relevancy',
                                               page_size=3,
-                                              from_param="2024-05-10",
-                                              to="2024-05-12")
+                                              from_param="2024-06-21",
+                                              to="2024-06-26")
         news_data = []
 
         for article in all_articles['articles']:
@@ -39,7 +39,11 @@ if st.sidebar.button("Buscar notícias"):
                 soup = BeautifulSoup(response.text, 'html.parser')
                 full_text = ' '.join(p.text for p in soup.find_all('p'))
 
-                generation_config = {"candidate_count": 1, "temperature": 0.5}
+                generation_config = {
+                    "candidate_count": 1,
+                    "temperature": 0.5,
+                }
+
                 model = genai.GenerativeModel(
                     model_name="gemini-1.5-pro-latest", generation_config=generation_config)
                 model_response = model.generate_content(full_text)
