@@ -27,7 +27,7 @@ if st.sidebar.button("Buscar notícias"):
                                               language='pt',
                                               sort_by='relevancy',
                                               page_size=3,
-                                              from_param="2024-06-21",
+                                              from_param="2024-06-24",
                                               to="2024-06-26")
         news_data = []
 
