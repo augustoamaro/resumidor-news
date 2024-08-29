@@ -45,7 +45,7 @@ if st.sidebar.button("Buscar notícias"):
                 }
 
                 model = genai.GenerativeModel(
-                    model_name="gemini-1.5-pro-latest", generation_config=generation_config)
+                    model_name="gemini-1.5-flash", generation_config=generation_config)
                 model_response = model.generate_content(full_text)
                 summary = model_response.text
 
