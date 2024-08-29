@@ -30,24 +30,27 @@ if st.sidebar.button("Buscar notícias"):
                                               from_param="2024-08-28",
                                               to="2024-08-29")
         news_data = []
-
         for article in all_articles['articles']:
             article_url = article['url']
             response = requests.get(article_url)
-
             if response.status_code == 200:
                 soup = BeautifulSoup(response.text, 'html.parser')
                 full_text = ' '.join(p.text for p in soup.find_all('p'))
-
                 generation_config = {
                     "candidate_count": 1,
                     "temperature": 0.5,
                 }
-
                 model = genai.GenerativeModel(
                     model_name="gemini-1.5-flash", generation_config=generation_config)
-                model_response = model.generate_content(full_text)
-                summary = model_response.text
+                try:
+                    model_response = model.generate_content(full_text)
+                    if model_response.text:
+                        summary = model_response.text
+                    else:
+                        summary = "Não foi possível gerar um resumo para esta notícia."
+                except Exception as e:
+                    st.error(f"Erro ao gerar resumo: {str(e)}")
+                    summary = "Ocorreu um erro ao gerar o resumo."
 
                 news_data.append({
                     'title': article['title'],
@@ -62,7 +65,7 @@ if st.sidebar.button("Buscar notícias"):
                 st.write(f"### {article['title']}")
                 st.write(f"**Autor:** {article['author']}")
                 st.write(f"**Publicado:** {article['publishedAt']}")
-                st.write(f"**URL:** ({article['url']})")
+                st.write(f"**URL:** {article['url']}")
                 st.write(f"**Resumo:** {article['summary']}")
                 st.write("---")
         else:
