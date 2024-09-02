@@ -28,7 +28,7 @@ if st.sidebar.button("Buscar notícias"):
                                               sort_by='relevancy',
                                               page_size=3,
                                               from_param="2024-09-25",
-                                              to="2024-09-02")
+                                              to="2024-09-01")
         news_data = []
         for article in all_articles['articles']:
             article_url = article['url']
